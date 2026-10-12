@@ -1,0 +1,455 @@
+/* HYC Portfolio — HYC_DESIGN.md 를 그대로 따릅니다.
+   숫자를 직접 쓰지 않고 tokens.css 의 토큰만 씁니다. */
+
+/* ── 기본 ───────────────────────────────────────────── */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--hyc-font-sans);
+  word-break: keep-all;          /* 한글 줄바꿈은 단어 단위로 */
+  background: var(--hyc-color-bg-canvas);
+  color: var(--hyc-color-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { display: block; max-width: 100%; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, h4, p, figure, dl, dd { margin: 0; }
+
+a { color: inherit; text-decoration: none; }
+
+/* 깊이는 면의 명도로만 만듭니다 — 그림자 없음. 포커스는 두 겹 링. */
+:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 var(--hyc-stroke-focus) var(--hyc-color-bg-canvas),
+    0 0 0 calc(var(--hyc-stroke-focus) * 2) var(--hyc-color-focus-ring);
+  border-radius: var(--hyc-radius-xs);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--hyc-space-md);
+  left: var(--hyc-space-md);
+  z-index: 100;
+  padding: var(--hyc-space-sm) var(--hyc-space-md);
+  border-radius: var(--hyc-radius-full);
+  background: var(--hyc-color-action-primary);
+  color: var(--hyc-color-action-on-primary);
+  transform: translateY(-200%);
+}
+.skip-link:focus-visible { transform: none; }
+
+/* ── 3. 글꼴 · 크기 · 자간 — 역할 13가지 ──────────────── */
+/* 24px 이상만 음수 자간. 24px 미만은 0. 예외는 Label/Eyebrow(+2%)뿐. */
+
+.t-display-xl,
+.t-display-l,
+.t-display-m,
+.t-display-number,
+.t-eyebrow { font-family: var(--hyc-font-display); }
+
+.t-display-xl     { font-size: 96px; line-height: 100%; letter-spacing: -0.03em;  font-weight: 400; }
+.t-display-l      { font-size: 64px; line-height: 104%; letter-spacing: -0.025em; font-weight: 400; }
+.t-display-m      { font-size: 44px; line-height: 110%; letter-spacing: -0.02em;  font-weight: 400; }
+.t-display-number { font-size: 56px; line-height: 100%; letter-spacing: -0.02em;  font-weight: 300; font-variant-numeric: tabular-nums; }
+
+.t-h1 { font-size: 48px; line-height: 130%; letter-spacing: -0.025em; font-weight: 700; }
+.t-h2 { font-size: 36px; line-height: 135%; letter-spacing: -0.02em;  font-weight: 700; }
+.t-h3 { font-size: 28px; line-height: 140%; letter-spacing: -0.015em; font-weight: 600; }
+.t-h4 { font-size: 22px; line-height: 145%; letter-spacing: 0;        font-weight: 600; }
+
+.t-lead   { font-size: 21px; line-height: 160%; letter-spacing: 0; font-weight: 400; }
+.t-body-l { font-size: 17px; line-height: 165%; letter-spacing: 0; font-weight: 400; }
+.t-body-m { font-size: 15px; line-height: 160%; letter-spacing: 0; font-weight: 400; }
+.t-body-s { font-size: 13px; line-height: 150%; letter-spacing: 0; font-weight: 400; }
+
+/* 본문 안 강조는 SemiBold만 — 밑줄·색·기울임을 쓰지 않습니다 */
+.is-strong { font-weight: 600; }
+
+.t-eyebrow {
+  font-size: 15px; line-height: 120%; letter-spacing: 0.02em;
+  font-weight: 500; text-transform: uppercase;
+}
+
+/* 작은 화면에서는 역할을 한 단계 낮춰 바꿉니다(값은 모두 정의된 역할 그대로) */
+@media (max-width: 1023px) {
+  .t-display-xl     { font-size: 64px; line-height: 104%; letter-spacing: -0.025em; }
+  .t-display-l      { font-size: 44px; line-height: 110%; letter-spacing: -0.02em; }
+  .t-display-number { font-size: 44px; line-height: 110%; letter-spacing: -0.02em; }
+  .t-h1             { font-size: 36px; line-height: 135%; letter-spacing: -0.02em; }
+  .t-h2             { font-size: 28px; line-height: 140%; letter-spacing: -0.015em; }
+  .t-h3             { font-size: 22px; line-height: 145%; letter-spacing: 0; }
+}
+
+@media (max-width: 767px) {
+  .t-display-xl { font-size: 44px; line-height: 110%; letter-spacing: -0.02em; }
+  .t-display-l  { font-size: 36px; line-height: 135%; letter-spacing: -0.02em; }
+  .t-display-m  { font-size: 28px; line-height: 140%; letter-spacing: -0.015em; }
+  .t-h1         { font-size: 28px; line-height: 140%; letter-spacing: -0.015em; }
+  .t-h2         { font-size: 22px; line-height: 145%; letter-spacing: 0; }
+  .t-lead       { font-size: 17px; line-height: 165%; }
+}
+
+/* ── 4. 격자 ────────────────────────────────────────── */
+/* 웹 좌우 80 · 콘텐츠 최대 폭 1280 · 태블릿 40 · 모바일 20 */
+
+.page {
+  width: 100%;
+  max-width: calc(1280px + var(--hyc-space-4xl) * 2);
+  margin-inline: auto;
+  padding-inline: var(--hyc-space-4xl);
+}
+
+@media (max-width: 1023px) {
+  .page { padding-inline: var(--hyc-space-2xl); }
+}
+@media (max-width: 767px) {
+  .page { padding-inline: var(--hyc-space-lg); }
+}
+
+/* 섹션 리듬 — 밝은 면과 어두운 면을 번갈아 쌓습니다. 색이 바뀌는 지점이 구분선입니다. */
+.section {
+  background: var(--hyc-color-bg-canvas);
+  color: var(--hyc-color-text-primary);
+  padding-block: var(--hyc-space-5xl);
+}
+
+@media (max-width: 1023px) { .section { padding-block: var(--hyc-space-4xl); } }
+@media (max-width: 767px)  { .section { padding-block: var(--hyc-space-3xl); } }
+
+/* ── 5. Navigation ──────────────────────────────────── */
+
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  height: var(--hyc-space-3xl);                 /* 64 */
+  background: var(--hyc-color-bg-canvas);
+  transition: background 160ms linear;
+}
+
+/* 스크롤 시 bg/subtle 80% + Material/Frosted(배경 흐림 20) */
+.nav[data-scrolled="true"] {
+  background: color-mix(in srgb, var(--hyc-color-bg-subtle) 80%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: var(--hyc-stroke-hairline) solid var(--hyc-color-border-subtle);
+}
+
+.nav__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--hyc-space-lg);
+  height: 100%;
+}
+
+.nav__links {
+  display: flex; align-items: center;
+  gap: var(--hyc-space-xl);
+  color: var(--hyc-color-text-secondary);
+}
+.nav__links a:hover { color: var(--hyc-color-text-primary); }
+.nav__links a[aria-current="true"] { color: var(--hyc-color-text-primary); font-weight: 600; }
+
+.nav__actions { display: flex; align-items: center; gap: var(--hyc-space-sm); }
+
+.nav__actions .nav__toggle { display: none; }
+
+@media (max-width: 1023px) {
+  .nav { height: 56px; }
+  .nav__links, .nav__actions .button { display: none; }
+  .nav__actions .nav__toggle { display: inline-flex; }
+}
+
+/* 모바일 메뉴 — 면을 반전해 덮습니다 */
+.nav__menu {
+  position: fixed; inset: 56px 0 auto;
+  z-index: 49;
+  display: none;
+  padding: var(--hyc-space-xl) var(--hyc-space-lg) var(--hyc-space-2xl);
+  background: var(--hyc-color-bg-canvas);
+  border-bottom: var(--hyc-stroke-hairline) solid var(--hyc-color-border-default);
+}
+.nav__menu[data-open="true"] { display: block; }
+
+.nav__menu ul { display: grid; gap: var(--hyc-space-0); }
+.nav__menu li + li { border-top: var(--hyc-stroke-hairline) solid var(--hyc-color-border-subtle); }
+.nav__menu a {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-block: var(--hyc-space-md);
+}
+.nav__menu .button { margin-top: var(--hyc-space-lg); width: 100%; }
+
+@media (min-width: 1024px) { .nav__menu { display: none !important; } }
+
+/* ── 로고 — brand/logo 한 색. 내비게이션 40px ─────────── */
+
+.logo { height: 40px; width: auto; color: var(--hyc-color-brand-logo); }
+
+@media (max-width: 767px) { .logo { height: 32px; } }
+
+/* ── 5. Button — 알약(radius/full). 누름은 scale(0.97) ── */
+
+.button {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--hyc-space-xs);
+  border: 0; border-radius: var(--hyc-radius-full);
+  font-family: var(--hyc-font-sans); font-weight: 600;
+  cursor: pointer;
+  transition: background 120ms linear, color 120ms linear, transform 80ms linear;
+}
+.button:active { transform: scale(0.97); }
+.button svg { width: var(--hyc-size-icon-m); height: var(--hyc-size-icon-m); flex: none; }
+
+.button--l { height: var(--hyc-size-control-l); padding-inline: var(--hyc-space-xl); font-size: 17px; line-height: 130%; }
+.button--m { height: var(--hyc-size-control-m); padding-inline: var(--hyc-space-lg); font-size: 15px; line-height: 130%; }
+.button--s { height: var(--hyc-size-control-s); padding-inline: var(--hyc-space-md); font-size: 13px; line-height: 130%; }
+
+.button--primary   { background: var(--hyc-color-action-primary); color: var(--hyc-color-action-on-primary); }
+.button--secondary { background: var(--hyc-color-action-secondary); color: var(--hyc-color-action-on-secondary); }
+.button--outline   { background: transparent; color: var(--hyc-color-text-primary); box-shadow: inset 0 0 0 var(--hyc-stroke-hairline) var(--hyc-color-border-strong); }
+.button--text      { background: transparent; color: var(--hyc-color-text-primary); padding-inline: 0; }
+
+.button--text:hover  { color: var(--hyc-color-text-secondary); }
+.button--outline:hover { background: var(--hyc-color-action-secondary); }
+
+/* Icon Button — 라벨 없이 뜻이 분명할 때만 */
+.icon-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: var(--hyc-size-control-m); height: var(--hyc-size-control-m);
+  border: 0; border-radius: var(--hyc-radius-full);
+  background: var(--hyc-color-bg-muted); color: var(--hyc-color-icon-primary);
+  cursor: pointer;
+  transition: background 120ms linear, transform 80ms linear;
+}
+.icon-button:active { transform: scale(0.97); }
+.icon-button--outline {
+  background: transparent;
+  box-shadow: inset 0 0 0 var(--hyc-stroke-hairline) var(--hyc-color-border-strong);
+}
+.icon-button svg { width: var(--hyc-size-icon-l); height: var(--hyc-size-icon-l); }
+
+/* ── 5. Chip — 36h · 좌우 16 · radius/sm ───────────────── */
+
+.chips { display: flex; flex-wrap: wrap; gap: var(--hyc-space-xs); }
+
+.chip {
+  display: inline-flex; align-items: center;
+  height: var(--hyc-size-control-s);
+  padding-inline: var(--hyc-space-md);
+  border-radius: var(--hyc-radius-sm);
+  background: var(--hyc-color-surface-card);
+  box-shadow: inset 0 0 0 var(--hyc-stroke-hairline) var(--hyc-color-border-default);
+  color: var(--hyc-color-text-secondary);
+  font-size: 13px; line-height: 130%; font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ── 5. Media Tag — 28h · 4/8 · overlay/chip + Frosted ── */
+
+.media-tag {
+  position: absolute; top: var(--hyc-space-lg); left: var(--hyc-space-lg);
+  display: inline-flex; align-items: center;
+  height: 28px;
+  padding: var(--hyc-space-2xs) var(--hyc-space-xs);
+  border-radius: var(--hyc-radius-sm);
+  background: var(--hyc-color-overlay-chip);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: var(--hyc-color-text-primary);
+  font-size: 13px; line-height: 150%; font-weight: 600;
+  pointer-events: none;
+}
+
+/* ── 이미지 자리 — bg/muted + Aperture. 그림자 없음 ───── */
+
+.media {
+  position: relative;
+  display: grid; place-items: center;
+  width: 100%;
+  background: var(--hyc-color-bg-muted);
+  border-radius: var(--hyc-radius-lg);
+  overflow: hidden;
+}
+.media--tile    { aspect-ratio: 1040 / 520; max-width: 1040px; }   /* Section Tile 이미지 프레임 */
+.media--square  { aspect-ratio: 1 / 1; border-radius: var(--hyc-radius-full); }
+.media > img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); }
+
+.media__aperture { width: 96px; height: 96px; color: var(--hyc-color-icon-secondary); }
+.media--square .media__aperture { width: 64px; height: 64px; }
+
+/* ── 5. Section Tile — 한 화면에 한 메시지 ─────────────── */
+
+.tile__inner { display: grid; gap: var(--hyc-space-2xl); }
+
+.tile__head { display: grid; gap: var(--hyc-space-md); max-width: 760px; }
+.tile__eyebrow { color: var(--hyc-color-text-secondary); }
+.tile__lead { color: var(--hyc-color-text-secondary); }
+
+.tile__meta {
+  display: flex; flex-wrap: wrap; gap: var(--hyc-space-xs);
+  color: var(--hyc-color-text-tertiary);
+}
+.tile__meta li + li::before { content: "·"; margin-inline-end: var(--hyc-space-xs); }
+
+.tile__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--hyc-space-lg); }
+
+/* ── 5. Section Header — 영문 아이브로 → 한글 헤드라인 → 리드 ── */
+
+.section-header { display: grid; gap: var(--hyc-space-md); max-width: 760px; margin-bottom: var(--hyc-space-2xl); }
+.section-header__eyebrow { color: var(--hyc-color-text-secondary); }
+.section-header__desc { color: var(--hyc-color-text-secondary); }
+
+/* ── 5. List Row — 위쪽 헤어라인으로만 구분, 세로로 쌓기 ── */
+
+.rows { display: grid; }
+
+.row {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: var(--hyc-space-xl);
+  align-items: start;
+  padding-block: var(--hyc-space-xl);
+  border-top: var(--hyc-stroke-hairline) solid var(--hyc-color-border-subtle);
+}
+.rows > .row:last-child { border-bottom: var(--hyc-stroke-hairline) solid var(--hyc-color-border-subtle); }
+
+.row__number { color: var(--hyc-color-text-tertiary); font-family: var(--hyc-font-display); font-weight: 400; }
+.row__title { display: grid; gap: var(--hyc-space-2xs); }
+.row__period { color: var(--hyc-color-text-tertiary); }
+.row__desc { color: var(--hyc-color-text-secondary); display: grid; gap: var(--hyc-space-xs); }
+
+@media (max-width: 1023px) {
+  .row {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: var(--hyc-space-md) var(--hyc-space-lg);
+  }
+  .row__desc { grid-column: 2; }
+}
+
+/* ── 7. Chart/Stat — 숫자 하나가 메시지일 때 ───────────── */
+/* 한 차트에서 잉크 강조는 1개. 나머지는 chart/base·text/secondary. */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--hyc-space-xl);
+}
+.stat {
+  display: grid; gap: var(--hyc-space-xs);
+  padding-top: var(--hyc-space-lg);
+  border-top: var(--hyc-stroke-bold) solid var(--hyc-color-chart-base);
+}
+.stat--highlight { border-top-color: var(--hyc-color-border-strong); }   /* 0 기준선과 같은 두께 */
+
+.stat__value { color: var(--hyc-color-text-secondary); }
+/* Jost 에는 한글이 없습니다 — 단위의 한글만 Gothic A1 으로 */
+.stat__unit { font-family: var(--hyc-font-sans); font-weight: 400; }
+.stat--highlight .stat__value { color: var(--hyc-color-chart-highlight); }
+.stat__label { color: var(--hyc-color-text-secondary); }
+.stat__caption { color: var(--hyc-color-text-tertiary); }
+
+@media (max-width: 767px) {
+  .stats { grid-template-columns: 1fr; gap: var(--hyc-space-lg); }
+}
+
+/* ── Skills — 카드를 나열하지 않고 행으로 쌓습니다 ─────── */
+
+.skill-row {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: var(--hyc-space-xl);
+  align-items: center;
+  padding-block: var(--hyc-space-lg);
+  border-top: var(--hyc-stroke-hairline) solid var(--hyc-color-border-subtle);
+}
+.skills > .skill-row:last-child { border-bottom: var(--hyc-stroke-hairline) solid var(--hyc-color-border-subtle); }
+.skill-row__name { color: var(--hyc-color-text-primary); }
+
+@media (max-width: 767px) {
+  .skill-row { grid-template-columns: 1fr; gap: var(--hyc-space-sm); align-items: start; }
+}
+
+/* ── Hero ───────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  overflow: clip;                       /* The Drop 은 좌우 여백만 벗어나고, 면의 경계는 넘지 않습니다 */
+  padding-block: var(--hyc-space-5xl) var(--hyc-space-5xl);
+}
+.hero__inner { display: grid; gap: var(--hyc-space-lg); position: relative; z-index: 1; }
+.hero__eyebrow { color: var(--hyc-color-text-secondary); }
+.hero__slogan { color: var(--hyc-color-text-primary); max-width: 960px; }
+.hero__lead { color: var(--hyc-color-text-secondary); max-width: 640px; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--hyc-space-md); margin-top: var(--hyc-space-lg); }
+
+/* 03 The Drop — 한 화면에 딱 하나의 요소만 그리드를 벗어납니다 */
+.hero__drop {
+  position: absolute;
+  top: 50%; right: calc(var(--hyc-space-5xl) * -1);
+  translate: 0 -50%;
+  width: 520px; height: 520px;
+  color: var(--hyc-color-chart-grid);
+  pointer-events: none;
+}
+@media (max-width: 1279px) { .hero__drop { width: 400px; height: 400px; right: calc(var(--hyc-space-4xl) * -1); } }
+@media (max-width: 767px)  { .hero__drop { width: 280px; height: 280px; right: calc(var(--hyc-space-3xl) * -1); top: auto; bottom: calc(var(--hyc-space-4xl) * -1); translate: 0; } }
+
+/* ── About ──────────────────────────────────────────── */
+
+.about { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: var(--hyc-space-2xl) var(--hyc-space-4xl); align-items: start; }
+.about__body { display: grid; gap: var(--hyc-space-lg); }
+.about__text { color: var(--hyc-color-text-secondary); max-width: 640px; }
+
+.facts { display: grid; gap: var(--hyc-space-md); }
+.facts > div { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: var(--hyc-space-md); }
+.facts dt { color: var(--hyc-color-text-tertiary); }
+.facts dd { color: var(--hyc-color-text-secondary); }
+
+@media (max-width: 1023px) {
+  .about { grid-template-columns: 1fr; }
+  .media--square { max-width: 240px; }
+}
+
+/* ── 5. Footer — 페이지에서 유일하게 촘촘한 곳 ─────────── */
+
+.footer {
+  background: var(--hyc-color-bg-subtle);
+  color: var(--hyc-color-text-primary);
+  border-top: var(--hyc-stroke-hairline) solid var(--hyc-color-border-default);
+  padding-block: var(--hyc-space-4xl) var(--hyc-space-2xl);
+}
+.footer__inner { display: grid; gap: var(--hyc-space-3xl); }
+.footer__top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--hyc-space-2xl); align-items: end; }
+.footer__tagline { max-width: 560px; }
+
+.footer__contact { display: grid; gap: var(--hyc-space-xs); color: var(--hyc-color-text-secondary); }
+.footer__contact a:hover { color: var(--hyc-color-text-primary); }
+
+.footer__legal {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--hyc-space-md);
+  padding-top: var(--hyc-space-lg);
+  border-top: var(--hyc-stroke-hairline) solid var(--hyc-color-border-default);
+  color: var(--hyc-color-text-tertiary);
+}
+
+@media (max-width: 767px) {
+  .footer__top { grid-template-columns: 1fr; align-items: start; }
+}

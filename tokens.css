@@ -1,0 +1,162 @@
+/* HYC Design System — tokens
+   HYC_DESIGN.md 부록을 그대로 옮긴 파일입니다. 값을 직접 고치지 마세요. */
+
+:root {
+  /* Typography */
+  --hyc-font-display: "Jost", sans-serif;
+  --hyc-font-sans: "Gothic A1", sans-serif;
+
+  /* Primitives */
+  --hyc-color-mono-0: #ffffff;
+  --hyc-color-mono-50: #f6f6f6;
+  --hyc-color-mono-100: #eeeeee;
+  --hyc-color-mono-200: #e2e2e2;
+  --hyc-color-mono-300: #c8c8c8;
+  --hyc-color-mono-400: #a1a1a1;
+  --hyc-color-mono-500: #767676;
+  --hyc-color-mono-600: #5a5a5a;
+  --hyc-color-mono-700: #3a3a3a;
+  --hyc-color-mono-800: #262626;
+  --hyc-color-mono-850: #1c1c1c;
+  --hyc-color-mono-900: #111111;
+  --hyc-color-mono-1000: #000000;
+  --hyc-color-alpha-black-48: rgb(0 0 0 / 0.48);
+  --hyc-color-alpha-black-64: rgb(0 0 0 / 0.64);
+  --hyc-color-alpha-white-64: rgb(255 255 255 / 0.64);
+
+  /* Color — Light */
+  --hyc-color-bg-canvas: var(--hyc-color-mono-0);
+  --hyc-color-bg-subtle: var(--hyc-color-mono-50);
+  --hyc-color-bg-muted: var(--hyc-color-mono-100);
+  --hyc-color-bg-inverse: var(--hyc-color-mono-900);
+  --hyc-color-surface-card: var(--hyc-color-mono-0);
+  --hyc-color-text-primary: var(--hyc-color-mono-900);
+  --hyc-color-text-secondary: var(--hyc-color-mono-600);
+  --hyc-color-text-tertiary: var(--hyc-color-mono-500);
+  --hyc-color-text-disabled: var(--hyc-color-mono-300);
+  --hyc-color-text-inverse: var(--hyc-color-mono-0);
+  --hyc-color-border-default: var(--hyc-color-mono-200);
+  --hyc-color-border-subtle: var(--hyc-color-mono-100);
+  --hyc-color-border-strong: var(--hyc-color-mono-900);
+  --hyc-color-action-primary: var(--hyc-color-mono-900);
+  --hyc-color-action-primary-pressed: var(--hyc-color-mono-700);
+  --hyc-color-action-on-primary: var(--hyc-color-mono-0);
+  --hyc-color-action-secondary: var(--hyc-color-mono-100);
+  --hyc-color-action-on-secondary: var(--hyc-color-mono-900);
+  --hyc-color-action-disabled: var(--hyc-color-mono-100);
+  --hyc-color-action-on-disabled: var(--hyc-color-mono-400);
+  --hyc-color-focus-ring: var(--hyc-color-mono-900);
+  --hyc-color-overlay-scrim: var(--hyc-color-alpha-black-48);
+  --hyc-color-overlay-chip: var(--hyc-color-alpha-white-64);
+  --hyc-color-brand-logo: var(--hyc-color-mono-900);
+  --hyc-color-icon-primary: var(--hyc-color-mono-900);
+  --hyc-color-icon-secondary: var(--hyc-color-mono-500);
+  --hyc-color-chart-highlight: var(--hyc-color-mono-900);
+  --hyc-color-chart-series-2: var(--hyc-color-mono-500);
+  --hyc-color-chart-base: var(--hyc-color-mono-300);
+  --hyc-color-chart-grid: var(--hyc-color-mono-100);
+
+  /* Spacing */
+  --hyc-space-0: 0;
+  --hyc-space-2xs: 4px;
+  --hyc-space-xs: 8px;
+  --hyc-space-sm: 12px;
+  --hyc-space-md: 16px;
+  --hyc-space-lg: 24px;
+  --hyc-space-xl: 32px;
+  --hyc-space-2xl: 48px;
+  --hyc-space-3xl: 64px;
+  --hyc-space-4xl: 80px;
+  --hyc-space-5xl: 120px;
+
+  /* Size */
+  --hyc-size-icon-s: 16px;
+  --hyc-size-icon-m: 20px;
+  --hyc-size-icon-l: 24px;
+  --hyc-size-control-s: 36px;
+  --hyc-size-control-m: 44px;
+  --hyc-size-control-l: 52px;
+
+  /* Shape */
+  --hyc-radius-none: 0;
+  --hyc-radius-xs: 4px;
+  --hyc-radius-sm: 8px;
+  --hyc-radius-md: 12px;
+  --hyc-radius-lg: 20px;
+  --hyc-radius-xl: 32px;
+  --hyc-radius-full: 9999px;
+  --hyc-stroke-hairline: 1px;
+  --hyc-stroke-regular: 1.5px;
+  --hyc-stroke-bold: 2px;
+  --hyc-stroke-focus: 2px;
+}
+
+/* Color — Dark: 섹션이나 페이지에 data-theme="dark"를 붙이면 통째로 반전됩니다 */
+[data-theme="dark"] {
+  --hyc-color-bg-canvas: var(--hyc-color-mono-1000);
+  --hyc-color-bg-subtle: var(--hyc-color-mono-850);
+  --hyc-color-bg-muted: var(--hyc-color-mono-800);
+  --hyc-color-bg-inverse: var(--hyc-color-mono-0);
+  --hyc-color-surface-card: var(--hyc-color-mono-850);
+  --hyc-color-text-primary: var(--hyc-color-mono-0);
+  --hyc-color-text-secondary: var(--hyc-color-mono-300);
+  --hyc-color-text-tertiary: var(--hyc-color-mono-400);
+  --hyc-color-text-disabled: var(--hyc-color-mono-700);
+  --hyc-color-text-inverse: var(--hyc-color-mono-900);
+  --hyc-color-border-default: var(--hyc-color-mono-700);
+  --hyc-color-border-subtle: var(--hyc-color-mono-800);
+  --hyc-color-border-strong: var(--hyc-color-mono-0);
+  --hyc-color-action-primary: var(--hyc-color-mono-0);
+  --hyc-color-action-primary-pressed: var(--hyc-color-mono-300);
+  --hyc-color-action-on-primary: var(--hyc-color-mono-900);
+  --hyc-color-action-secondary: var(--hyc-color-mono-800);
+  --hyc-color-action-on-secondary: var(--hyc-color-mono-0);
+  --hyc-color-action-disabled: var(--hyc-color-mono-800);
+  --hyc-color-action-on-disabled: var(--hyc-color-mono-600);
+  --hyc-color-focus-ring: var(--hyc-color-mono-0);
+  --hyc-color-overlay-scrim: var(--hyc-color-alpha-black-64);
+  --hyc-color-overlay-chip: var(--hyc-color-alpha-black-48);
+  --hyc-color-brand-logo: var(--hyc-color-mono-0);
+  --hyc-color-icon-primary: var(--hyc-color-mono-0);
+  --hyc-color-icon-secondary: var(--hyc-color-mono-400);
+  --hyc-color-chart-highlight: var(--hyc-color-mono-0);
+  --hyc-color-chart-series-2: var(--hyc-color-mono-500);
+  --hyc-color-chart-base: var(--hyc-color-mono-700);
+  --hyc-color-chart-grid: var(--hyc-color-mono-800);
+}
+
+/* 섹션 리듬을 전역 모드와 무관하게 유지합니다.
+   페이지 전체가 Dark일 때, Dark로 지정된 섹션은 반대로 Light가 되어야
+   "밝은 면과 어두운 면이 교차하는 지점이 곧 구분선"이라는 규칙이 살아남습니다. */
+html[data-theme="dark"] [data-theme="dark"] {
+  --hyc-color-bg-canvas: var(--hyc-color-mono-0);
+  --hyc-color-bg-subtle: var(--hyc-color-mono-50);
+  --hyc-color-bg-muted: var(--hyc-color-mono-100);
+  --hyc-color-bg-inverse: var(--hyc-color-mono-900);
+  --hyc-color-surface-card: var(--hyc-color-mono-0);
+  --hyc-color-text-primary: var(--hyc-color-mono-900);
+  --hyc-color-text-secondary: var(--hyc-color-mono-600);
+  --hyc-color-text-tertiary: var(--hyc-color-mono-500);
+  --hyc-color-text-disabled: var(--hyc-color-mono-300);
+  --hyc-color-text-inverse: var(--hyc-color-mono-0);
+  --hyc-color-border-default: var(--hyc-color-mono-200);
+  --hyc-color-border-subtle: var(--hyc-color-mono-100);
+  --hyc-color-border-strong: var(--hyc-color-mono-900);
+  --hyc-color-action-primary: var(--hyc-color-mono-900);
+  --hyc-color-action-primary-pressed: var(--hyc-color-mono-700);
+  --hyc-color-action-on-primary: var(--hyc-color-mono-0);
+  --hyc-color-action-secondary: var(--hyc-color-mono-100);
+  --hyc-color-action-on-secondary: var(--hyc-color-mono-900);
+  --hyc-color-action-disabled: var(--hyc-color-mono-100);
+  --hyc-color-action-on-disabled: var(--hyc-color-mono-400);
+  --hyc-color-focus-ring: var(--hyc-color-mono-900);
+  --hyc-color-overlay-scrim: var(--hyc-color-alpha-black-48);
+  --hyc-color-overlay-chip: var(--hyc-color-alpha-white-64);
+  --hyc-color-brand-logo: var(--hyc-color-mono-900);
+  --hyc-color-icon-primary: var(--hyc-color-mono-900);
+  --hyc-color-icon-secondary: var(--hyc-color-mono-500);
+  --hyc-color-chart-highlight: var(--hyc-color-mono-900);
+  --hyc-color-chart-series-2: var(--hyc-color-mono-500);
+  --hyc-color-chart-base: var(--hyc-color-mono-300);
+  --hyc-color-chart-grid: var(--hyc-color-mono-100);
+}

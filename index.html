@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>황유찬 — 포트폴리오</title>
+<meta name="description" content="데이터 파이프라인 구축부터 모델링, 클라우드 배포까지 경험을 쌓아가고 있는 엔지니어 황유찬의 포트폴리오입니다.">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="황유찬 — 포트폴리오">
+<meta property="og:description" content="데이터 파이프라인 구축부터 모델링, 클라우드 배포까지 경험을 쌓아가고 있는 엔지니어입니다.">
+<meta property="og:locale" content="ko_KR">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Gothic+A1:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles.css">
+
+<!-- 첫 페인트 전에 모드를 정해 깜빡임을 막습니다 -->
+<script>
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem("hyc-theme"); } catch (e) {}
+    var dark = saved ? saved === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (dark) document.documentElement.setAttribute("data-theme", "dark");
+  })();
+</script>
+</head>
+<body>
+
+<a class="skip-link t-body-m is-strong" href="#main">본문으로 건너뛰기</a>
+
+<!-- ── 아이콘 — 24px 그리드 · 1.5px 단일 획 · 둥근 끝 ── -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <symbol id="icon-arrow-up-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 17 17 7"/><path d="M9 7h8v8"/>
+  </symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 12h16"/><path d="m14 6 6 6-6 6"/>
+  </symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <path d="M3 7h18M3 12h18M3 17h18"/>
+  </symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <path d="M6 6l12 12M18 6L6 18"/>
+  </symbol>
+  <!-- 04 The Aperture — 원이 필요할 때 닫지 않고 열어 둡니다 -->
+  <symbol id="icon-aperture" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <path d="M16.59 5.45A8 8 0 1 0 16.59 18.55"/>
+  </symbol>
+  <symbol id="aperture-ring" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt">
+    <path d="M16.59 5.45A8 8 0 1 0 16.59 18.55"/>
+  </symbol>
+</svg>
+
+<!-- ── Navigation — 로고 왼쪽, 링크와 버튼 오른쪽 ── -->
+<header class="nav" id="nav">
+  <div class="page nav__inner">
+    <a href="#main" aria-label="HYC 홈">
+      <!-- 로고 — One Weight(획 = 대문자 높이의 1/10) · The Join · The Drop · The Aperture -->
+      <svg class="logo" viewBox="0 0 260 124" role="img" aria-label="HYC">
+        <!-- H : 오른쪽 기둥을 Y의 팔과 같은 각도로 잘라 맞물립니다 -->
+        <g fill="currentColor">
+          <path d="M0 0h10v100H0z"/>
+          <path d="M10 45h50v10H10z"/>
+          <path d="M60 0 70 14.29V100H60z"/>
+        </g>
+        <!-- Y : 기준선 아래로 23% 내려옵니다 (The Drop) · C : 오른쪽이 열린 원 -->
+        <g fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="butt" stroke-linejoin="miter">
+          <path d="M80 0 115 50 150 0M115 50v73"/>
+          <path d="M230.81 13.14A45 45 0 1 0 230.81 86.86"/>
+        </g>
+      </svg>
+    </a>
+
+    <nav class="nav__links t-body-m" aria-label="섹션">
+      <a href="#work">Work</a>
+      <a href="#result">Result</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#about">About</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button class="icon-button icon-button--outline" id="theme-toggle" type="button" aria-pressed="false">
+        <svg aria-hidden="true"><use href="#icon-aperture"/></svg>
+        <span class="visually-hidden">어두운 화면으로 바꾸기</span>
+      </button>
+      <a class="button button--m button--outline" href="mailto:yuchanhwang84@gmail.com">메일 보내기</a>
+      <button class="icon-button icon-button--outline nav__toggle" id="menu-toggle" type="button"
+              aria-expanded="false" aria-controls="nav-menu">
+        <svg aria-hidden="true"><use href="#icon-menu" id="menu-icon"/></svg>
+        <span class="visually-hidden">메뉴 열기</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="nav__menu" id="nav-menu" data-open="false">
+  <nav aria-label="섹션">
+    <ul class="t-h4">
+      <li><a href="#work">Work <svg width="24" height="24" aria-hidden="true"><use href="#icon-arrow-right"/></svg></a></li>
+      <li><a href="#result">Result <svg width="24" height="24" aria-hidden="true"><use href="#icon-arrow-right"/></svg></a></li>
+      <li><a href="#experience">Experience <svg width="24" height="24" aria-hidden="true"><use href="#icon-arrow-right"/></svg></a></li>
+      <li><a href="#skills">Skills <svg width="24" height="24" aria-hidden="true"><use href="#icon-arrow-right"/></svg></a></li>
+      <li><a href="#about">About <svg width="24" height="24" aria-hidden="true"><use href="#icon-arrow-right"/></svg></a></li>
+    </ul>
+  </nav>
+  <a class="button button--l button--outline" href="mailto:yuchanhwang84@gmail.com">메일 보내기</a>
+</div>
+
+<main id="main">
+
+  <!-- ── Hero (Light) ── -->
+  <section class="section hero">
+    <div class="page hero__inner">
+      <p class="t-eyebrow hero__eyebrow">Portfolio · 2026</p>
+      <h1 class="t-display-xl hero__slogan">Pipeline<br>to Deploy</h1>
+      <p class="t-lead hero__lead">
+        데이터 파이프라인 구축부터 모델링, 클라우드 배포까지 경험을 쌓아가고 있는 엔지니어 황유찬입니다.
+        <span class="is-strong">직접 만들어 보고, 만든 것을 사람에게 가르치며 배웁니다.</span>
+      </p>
+      <div class="hero__actions">
+        <a class="button button--l button--primary" href="#work">
+          작업 보기 <svg aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+        </a>
+        <a class="button button--l button--text" href="https://github.com/uchan04" target="_blank" rel="noopener noreferrer">
+          GitHub 보기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+          <span class="visually-hidden">(새 창)</span>
+        </a>
+      </div>
+    </div>
+    <!-- 03 The Drop — 한 화면에 딱 하나의 요소만 그리드를 벗어납니다 -->
+    <svg class="hero__drop" viewBox="0 0 24 24" aria-hidden="true"><use href="#aperture-ring"/></svg>
+  </section>
+
+  <!-- ── Work 01 (Dark) ── -->
+  <section class="section" id="work" data-theme="dark">
+    <div class="page tile__inner">
+      <div class="tile__head">
+        <p class="t-eyebrow tile__eyebrow">Work 01 · 모꼬지</p>
+        <h2 class="t-h1">고립·은둔 청년이 다시 사람을 만나기까지, 징검다리를 놓았습니다.</h2>
+        <p class="t-lead tile__lead">
+          AI 유형 진단부터 단계별 온·오프라인 커뮤니티, 지도 기반 공공 정책 추천까지 하나로 이어지는 복지 플랫폼입니다.
+          5명 팀의 리더로 아키텍처를 설계하고 전체 통합을 맡아 3주 만에 MVP를 배포했습니다.
+        </p>
+      </div>
+
+      <ul class="t-body-s tile__meta">
+        <li>2026.08.12~2026.08.28</li>
+        <li>팀 5명 · 기여도 50%</li>
+        <li>PM · 풀스택 · 인프라</li>
+        <li>최종 성과 발표 2등 · 우수 수료생 선발</li>
+      </ul>
+
+      <div class="media media--tile">
+        <svg class="media__aperture" viewBox="0 0 24 24" aria-hidden="true"><use href="#aperture-ring"/></svg>
+        <span class="media-tag">가상 화면</span>
+      </div>
+
+      <ul class="chips">
+        <li class="chip">Next.js App Router</li>
+        <li class="chip">TypeScript</li>
+        <li class="chip">AWS Bedrock</li>
+        <li class="chip">AWS Cognito</li>
+        <li class="chip">Prisma</li>
+        <li class="chip">RDS PostgreSQL</li>
+      </ul>
+
+      <div class="tile__actions">
+        <a class="button button--l button--text" href="https://github.com/uchan04/AWS_project" target="_blank" rel="noopener noreferrer">
+          코드 보기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+          <span class="visually-hidden">(새 창)</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Work 02 (Light) ── -->
+  <section class="section">
+    <div class="page tile__inner">
+      <div class="tile__head">
+        <p class="t-eyebrow tile__eyebrow">Work 02 · Welliverse</p>
+        <h2 class="t-h1">흩어진 건강 기록을 캐릭터 한 명의 성장 이야기로 모았습니다.</h2>
+        <p class="t-lead tile__lead">
+          피부·수면·스트레스·수분 섭취 기록을 캐릭터의 외형에 실시간으로 반영하고,
+          그 변화를 하나의 서사로 설명해 오늘 할 루틴을 먼저 제안합니다.
+        </p>
+      </div>
+
+      <ul class="t-body-s tile__meta">
+        <li>2026.08.01~2026.08.25</li>
+        <li>기여도 40%</li>
+        <li>데이터 아키텍처 · AI 매핑 설계</li>
+        <li>멋사대학 14기 중앙 해커톤</li>
+      </ul>
+
+      <div class="media media--tile">
+        <svg class="media__aperture" viewBox="0 0 24 24" aria-hidden="true"><use href="#aperture-ring"/></svg>
+        <span class="media-tag">가상 화면</span>
+      </div>
+
+      <ul class="chips">
+        <li class="chip">React</li>
+        <li class="chip">멀티모달 AI</li>
+        <li class="chip">데이터 모델링</li>
+        <li class="chip">추천 엔진</li>
+      </ul>
+
+      <div class="tile__actions">
+        <a class="button button--l button--text" href="https://github.com/Welliverse/Welli-FE-A" target="_blank" rel="noopener noreferrer">
+          코드 보기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+          <span class="visually-hidden">(새 창)</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Work 03 (Dark) ── -->
+  <section class="section" data-theme="dark">
+    <div class="page tile__inner">
+      <div class="tile__head">
+        <p class="t-eyebrow tile__eyebrow">Work 03 · 약·음식 상성 체커</p>
+        <h2 class="t-h1">먹는 약과 오늘 먹은 음식이 부딪히는지 한눈에 보여 줍니다.</h2>
+        <p class="t-lead tile__lead">
+          복용 중인 약을 약상자에 담으면 음식과의 상호작용을 금기·경고·주의 3단계로 분석해 리포트로 보여 줍니다.
+          공공 데이터로 성분 매핑 테이블을 만들어, 브랜드명으로 찾아도 성분명으로 찾아집니다.
+        </p>
+      </div>
+
+      <ul class="t-body-s tile__meta">
+        <li>2026.08</li>
+        <li>개인 프로젝트 · 기여도 100%</li>
+        <li>프론트엔드 · 백엔드 · UI/UX · 공공 데이터 DB</li>
+      </ul>
+
+      <div class="media media--tile">
+        <svg class="media__aperture" viewBox="0 0 24 24" aria-hidden="true"><use href="#aperture-ring"/></svg>
+        <span class="media-tag">가상 화면</span>
+      </div>
+
+      <ul class="chips">
+        <li class="chip">Next.js 14</li>
+        <li class="chip">NestJS 10</li>
+        <li class="chip">Prisma</li>
+        <li class="chip">PostgreSQL</li>
+        <li class="chip">Tailwind CSS</li>
+        <li class="chip">pnpm · turbo</li>
+      </ul>
+
+      <div class="tile__actions">
+        <a class="button button--l button--text" href="https://github.com/uchan04/drug-food-app" target="_blank" rel="noopener noreferrer">
+          코드 보기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+          <span class="visually-hidden">(새 창)</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Work 04 (Light) ── -->
+  <section class="section">
+    <div class="page tile__inner">
+      <div class="tile__head">
+        <p class="t-eyebrow tile__eyebrow">Work 04 · 이리온</p>
+        <h2 class="t-h1">디지털이 어려운 어르신과 봉사자를 동네 단위로 연결합니다.</h2>
+        <p class="t-lead tile__lead">
+          PC·모바일 기기·생활 가전으로 봉사 분야를 나누고, 활동 장소와 모집 인원을 한 화면에서 읽히게 정리했습니다.
+          프론트엔드를 맡아 공고·게시판 목록과 마이페이지 실적 화면을 만들었습니다.
+        </p>
+      </div>
+
+      <ul class="t-body-s tile__meta">
+        <li>2023.07.17~2023.08.18</li>
+        <li>팀 5명 · 기여도 40%</li>
+        <li>프론트엔드</li>
+        <li>멋쟁이사자처럼 11주년 해커톤</li>
+      </ul>
+
+      <div class="media media--tile">
+        <svg class="media__aperture" viewBox="0 0 24 24" aria-hidden="true"><use href="#aperture-ring"/></svg>
+        <span class="media-tag">가상 화면</span>
+      </div>
+
+      <ul class="chips">
+        <li class="chip">React</li>
+        <li class="chip">HTML5</li>
+        <li class="chip">CSS3</li>
+        <li class="chip">컴포넌트 설계</li>
+      </ul>
+
+      <div class="tile__actions">
+        <a class="button button--l button--text" href="https://www.figma.com/design/yos87uVND6MMZoANfx5uLm/%EC%9D%B4%EB%A6%AC%EC%98%A8?node-id=0-1" target="_blank" rel="noopener noreferrer">
+          디자인 보기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+          <span class="visually-hidden">(새 창)</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Result (Dark) — Chart/Stat · 강조는 1개 ── -->
+  <section class="section" id="result" data-theme="dark">
+    <div class="page">
+      <div class="section-header">
+        <p class="t-eyebrow section-header__eyebrow">Result</p>
+        <h2 class="t-h2">3주 만에 만든 모꼬지는 이런 숫자를 남겼습니다.</h2>
+        <p class="t-body-s section-header__desc">단위: 등 · % · 2026.08 AWS AI 전문가 양성 과정 최종 경진대회</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat stat--highlight">
+          <p class="t-display-number stat__value">2<span class="stat__unit">등</span></p>
+          <p class="t-body-m is-strong stat__label">최종 성과 발표</p>
+          <p class="t-body-s stat__caption">서비스 완성도 · AI 활용성 · 사회적 가치를 높게 평가받았습니다.</p>
+        </div>
+        <div class="stat">
+          <p class="t-display-number stat__value">100%</p>
+          <p class="t-body-m is-strong stat__label">초보 팀원 기능 구현 달성률</p>
+          <p class="t-body-s stat__caption">첫날 공통 레이아웃과 예시 코드를 만들어 공유했고, 낙오 없이 전원이 통합했습니다.</p>
+        </div>
+        <div class="stat">
+          <p class="t-display-number stat__value">40%</p>
+          <p class="t-body-m is-strong stat__label">통합 시간 단축</p>
+          <p class="t-body-s stat__caption">기술별 분할 대신 기능별 수직 분할을 도입해 API 소통 비용을 줄였습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Experience (Light) — Section Header + List Row ── -->
+  <section class="section" id="experience">
+    <div class="page">
+      <div class="section-header">
+        <p class="t-eyebrow section-header__eyebrow">Experience</p>
+        <h2 class="t-h1">손으로 만들고 사람에게 가르치며 배웠습니다.</h2>
+        <p class="t-lead section-header__desc">부트캠프와 동아리, 봉사와 군생활까지 지나온 자리들입니다.</p>
+      </div>
+
+      <ol class="rows">
+        <li class="row">
+          <p class="t-h3 row__number">01</p>
+          <div class="row__title">
+            <h3 class="t-h4">성남시 청년창업 아이디에이션 4.0</h3>
+            <p class="t-body-s row__period">2026.08.15~2026.11.21 · 성남시청소년청년재단</p>
+          </div>
+          <div class="t-body-l row__desc">
+            <p>실리콘밸리 글로벌 부트캠프에 공식 선발되어 샌프란시스코 현지 프로젝트를 수행합니다.</p>
+          </div>
+        </li>
+        <li class="row">
+          <p class="t-h3 row__number">02</p>
+          <div class="row__title">
+            <h3 class="t-h4">AWS AI 전문가 양성 과정</h3>
+            <p class="t-body-s row__period">2026.07.13~2026.08.28 · 경기도경제과학진흥원 X AWS</p>
+          </div>
+          <div class="t-body-l row__desc">
+            <p>MLOps·AI 에이전트·생성형 AI 개발을 배우고 팀장으로 프로젝트를 이끌어 우수생으로 수료했습니다.</p>
+          </div>
+        </li>
+        <li class="row">
+          <p class="t-h3 row__number">03</p>
+          <div class="row__title">
+            <h3 class="t-h4">멋쟁이사자처럼 프론트엔드 운영진</h3>
+            <p class="t-body-s row__period">2023.01~2023.12 · 2026.01~현재</p>
+          </div>
+          <div class="t-body-l row__desc">
+            <p>프론트엔드 트랙 부원을 가르치고, 클라우드 서비스와 Git 활용법 교육을 맡았습니다.</p>
+          </div>
+        </li>
+        <li class="row">
+          <p class="t-h3 row__number">04</p>
+          <div class="row__title">
+            <h3 class="t-h4">코드클럽 학생 봉사단</h3>
+            <p class="t-body-s row__period">2023.09.20~2023.12.10 · 서울 마천초등학교</p>
+          </div>
+          <div class="t-body-l row__desc">
+            <p>스크래치로 초등학생을 지도하고 SW 교육봉사 프로그램을 운영했습니다.</p>
+          </div>
+        </li>
+        <li class="row">
+          <p class="t-h3 row__number">05</p>
+          <div class="row__title">
+            <h3 class="t-h4">육군 28사단 GP 운전병</h3>
+            <p class="t-body-s row__period">2023.04.24~2025.10.23 · 만기 전역</p>
+          </div>
+          <div class="t-body-l row__desc">
+            <p>GP에서 운전병으로 복무하며 약속한 시간을 지키는 일의 무게를 배웠습니다.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── Skills (Dark) — 카드를 나열하지 않고 행으로 쌓습니다 ── -->
+  <section class="section" id="skills" data-theme="dark">
+    <div class="page">
+      <div class="section-header">
+        <p class="t-eyebrow section-header__eyebrow">Skills</p>
+        <h2 class="t-h2">지금 손에 익은 도구들입니다.</h2>
+      </div>
+
+      <div class="skills">
+        <div class="skill-row">
+          <p class="t-body-m is-strong skill-row__name">Language</p>
+          <ul class="chips"><li class="chip">Python</li><li class="chip">JavaScript</li><li class="chip">TypeScript</li></ul>
+        </div>
+        <div class="skill-row">
+          <p class="t-body-m is-strong skill-row__name">AI · LLM</p>
+          <ul class="chips"><li class="chip">Prompt Engineering</li><li class="chip">RAG</li><li class="chip">AWS Bedrock</li><li class="chip">Hugging Face</li><li class="chip">PyTorch</li></ul>
+        </div>
+        <div class="skill-row">
+          <p class="t-body-m is-strong skill-row__name">Frontend</p>
+          <ul class="chips"><li class="chip">React</li><li class="chip">Next.js</li><li class="chip">HTML5</li><li class="chip">CSS3</li></ul>
+        </div>
+        <div class="skill-row">
+          <p class="t-body-m is-strong skill-row__name">Backend</p>
+          <ul class="chips"><li class="chip">Next.js</li><li class="chip">NestJS</li><li class="chip">PostgreSQL</li><li class="chip">Prisma</li><li class="chip">AWS Cognito</li></ul>
+        </div>
+        <div class="skill-row">
+          <p class="t-body-m is-strong skill-row__name">Data Science</p>
+          <ul class="chips"><li class="chip">Pandas</li><li class="chip">NumPy</li><li class="chip">Bayesian Statistics</li></ul>
+        </div>
+        <div class="skill-row">
+          <p class="t-body-m is-strong skill-row__name">DevOps · Tools</p>
+          <ul class="chips"><li class="chip">Git · GitHub</li><li class="chip">Docker</li><li class="chip">Cursor</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About (Light) — 인물 사진은 1:1 프로필에만 ── -->
+  <section class="section" id="about">
+    <div class="page about">
+      <div class="media media--square">
+        <svg class="media__aperture" viewBox="0 0 24 24" aria-hidden="true"><use href="#aperture-ring"/></svg>
+      </div>
+
+      <div class="about__body">
+        <p class="t-eyebrow section-header__eyebrow">About</p>
+        <h2 class="t-h1">황유찬입니다.</h2>
+        <p class="t-lead about__text">
+          을지대학교 빅데이터 인공지능 전공 2학년에 재학 중입니다. 의료IT를 먼저 전공했고,
+          지금은 AI로 사람의 일상을 조금 더 행복하게 만드는 일에 관심이 있습니다.
+          피아노·책·코딩을 좋아합니다.
+        </p>
+
+        <dl class="facts t-body-l">
+          <div>
+            <dt class="t-body-s">교육</dt>
+            <dd>을지대학교 빅데이터 인공지능 (2023.03~현재)<br>김포제일고등학교 졸업 (2020.02~2022.02)</dd>
+          </div>
+          <div>
+            <dt class="t-body-s">군경력</dt>
+            <dd>육군 28사단 GP 운전병 (2023.04.24~2025.10.23)</dd>
+          </div>
+          <div>
+            <dt class="t-body-s">지역</dt>
+            <dd>김포</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ── Footer — 페이지에서 유일하게 촘촘한 곳 ── -->
+<footer class="footer">
+  <div class="page footer__inner">
+    <div class="footer__top">
+      <h2 class="t-display-l footer__tagline">Let's build<br>something.</h2>
+      <div class="footer__contact t-body-l">
+        <p><a href="mailto:yuchanhwang84@gmail.com">yuchanhwang84@gmail.com</a></p>
+        <p><a href="https://github.com/uchan04" target="_blank" rel="noopener noreferrer">GitHub @uchan04</a></p>
+        <p>
+          <a class="button button--m button--primary" href="mailto:yuchanhwang84@gmail.com" style="margin-top:var(--hyc-space-md)">
+            메일 보내기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="footer__legal t-body-s">
+      <p>© 2026 HYC. All rights reserved.</p>
+      <p>HYC Design System v1.1 로 만들었습니다.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js" defer></script>
+</body>
+</html>
