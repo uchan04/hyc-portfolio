@@ -464,8 +464,11 @@ a { color: inherit; text-decoration: none; }
   .hero__inner,
   .tile__inner { justify-items: center; text-align: center; }
 
+  /* Figma Hero(78:453)와 같게 — 슬로건은 한 줄, 리드는 932px 폭에서 문장마다 한 줄 */
   .hero__slogan { max-width: none; }
-  .hero__lead   { max-width: 640px; }
+  .hero__br     { display: none; }
+  .hero__lead   { max-width: 932px; text-wrap: balance; }   /* 좁은 화면에서 한 단어만 떨어지지 않게 */
+  .hero__lead .is-strong { display: block; }
   .hero__actions { justify-content: center; }
 
   .tile__head { max-width: 880px; justify-items: center; }
