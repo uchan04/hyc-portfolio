@@ -16,8 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Gothic+A1:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="tokens.css">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="tokens.css?v=4">
+<link rel="stylesheet" href="styles.css?v=4">
 
 <!-- 첫 페인트 전에 모드를 정해 깜빡임을 막습니다 -->
 <script>
@@ -27,6 +27,12 @@
     var dark = saved ? saved === "dark"
       : window.matchMedia("(prefers-color-scheme: dark)").matches;
     if (dark) document.documentElement.setAttribute("data-theme", "dark");
+
+    // 모션은 JS가 있을 때만 숨겼다가 보여 줍니다. app.js가 3초 안에 못 뜨면 바로 보여 줍니다.
+    document.documentElement.classList.add("js");
+    setTimeout(function () {
+      if (!window.__hycMotion) document.documentElement.classList.remove("js");
+    }, 3000);
   })();
 </script>
 </head>
@@ -45,6 +51,9 @@
   <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
     <path d="M3 7h18M3 12h18M3 17h18"/>
   </symbol>
+  <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m6 9 6 6 6-6"/>
+  </symbol>
   <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
     <path d="M6 6l12 12M18 6L6 18"/>
   </symbol>
@@ -53,7 +62,7 @@
     <path d="M16.59 5.45A8 8 0 1 0 16.59 18.55"/>
   </symbol>
   <symbol id="aperture-ring" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="butt">
-    <path d="M16.59 5.45A8 8 0 1 0 16.59 18.55"/>
+    <path d="M16.59 5.45A8 8 0 1 0 16.59 18.55" pathLength="1"/>
   </symbol>
 </svg>
 
@@ -62,18 +71,9 @@
   <div class="page nav__inner">
     <a href="#main" aria-label="HYC 홈">
       <!-- 로고 — One Weight(획 = 대문자 높이의 1/10) · The Join · The Drop · The Aperture -->
-      <svg class="logo" viewBox="0 0 260 124" role="img" aria-label="HYC">
-        <!-- H : 오른쪽 기둥을 Y의 팔과 같은 각도로 잘라 맞물립니다 -->
-        <g fill="currentColor">
-          <path d="M0 0h10v100H0z"/>
-          <path d="M10 45h50v10H10z"/>
-          <path d="M60 0 70 14.29V100H60z"/>
-        </g>
-        <!-- Y : 기준선 아래로 23% 내려옵니다 (The Drop) · C : 오른쪽이 열린 원 -->
-        <g fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="butt" stroke-linejoin="miter">
-          <path d="M80 0 115 50 150 0M115 50v73"/>
-          <path d="M230.81 13.14A45 45 0 1 0 230.81 86.86"/>
-        </g>
+      <svg class="logo" viewBox="0 0 58.213 40" role="img" aria-label="HYC">
+        <!-- Figma HYC Design System · Logo 컴포넌트(5:4) 경로 그대로. 손으로 다시 그리지 않습니다. -->
+        <path fill="currentColor" d="M0 0H3.437V15.789H16.488V6.966L19.925 12.122V32.577H16.488V18.883H3.437V32.577H0ZM15.975 0H20.106L30.015 14.864 39.925 0H44.056L31.734 18.483V40H28.297V18.483ZM58.213 30.94C52.731 35.808 44.384 35.477 39.303 30.192 34.223 24.906 34.223 16.552 39.303 11.266 44.384 5.981 52.731 5.651 58.213 10.518L56.119 12.877C51.903 9.134 45.484 9.388 41.577 13.452 37.671 17.517 37.671 23.941 41.577 28.006 45.484 32.07 51.903 32.324 56.119 28.581Z"/>
       </svg>
     </a>
 
@@ -115,6 +115,32 @@
 
 <main id="main">
 
+  <!-- ── Intro (Dark) — 로고 한 장. 스크롤하면 획마다 자기 선 방향으로 흩어집니다 ── -->
+  <section class="section intro" data-theme="dark" aria-label="HYC">
+    <!-- 로고를 획 7개로 나눴습니다. 가만히 있을 때는 원래 로고와 같은 모양입니다.
+         data-exit = 빠져나가는 방향(획의 선 방향), data-delay = 출발 순서, data-spin = C는 호를 따라 돕니다 -->
+    <svg class="intro__logo" viewBox="0 0 58.213 40" role="img" aria-label="HYC">
+      <!-- Figma Logo 컴포넌트(5:4)를 획 7개로 나눈 것. 가만히 있을 때는 원본과 같은 모양입니다.
+           굵기도 원본 그대로: 기둥·팔 3.437 · H 가로획 3.094 · C 3.155 -->
+      <defs>
+        <clipPath id="clip-h-right"><path d="M16.488 6.966 19.925 12.122V32.577H16.488Z"/></clipPath>
+        <clipPath id="clip-y"><path d="M15.975 0H20.106L30.015 14.864 39.925 0H44.056L31.734 18.483V40H28.297V18.483Z"/></clipPath>
+      </defs>
+      <g class="intro__stroke" data-exit="0,-1" data-delay="0.20"><path d="M1.7185 32.577V0"/></g>
+      <g class="intro__stroke" data-exit="-1,0" data-delay="0.30"><path d="M16.738 17.336H3.187" style="stroke-width:3.094"/></g>
+      <g class="intro__stroke" data-exit="0,1" data-delay="0.17" clip-path="url(#clip-h-right)"><path d="M18.2065 6.966V32.577"/></g>
+      <g class="intro__stroke" data-exit="-12.322,-18.483" data-delay="0.10" clip-path="url(#clip-y)"><path d="M31.125 19.626 16.931 -1.664"/></g>
+      <g class="intro__stroke" data-exit="12.322,-18.483" data-delay="0.06" clip-path="url(#clip-y)"><path d="M28.906 19.626 43.1 -1.664"/></g>
+      <g class="intro__stroke" data-exit="0,1" data-delay="0.14" clip-path="url(#clip-y)"><path d="M30.0155 14V40"/></g>
+      <g class="intro__stroke" data-spin="-140" data-spin-center="49.147 20.729" data-delay="0"><path d="M57.1657 11.6974A12.0775 12.0775 0 1 0 57.1657 29.7606" style="stroke-width:3.155"/></g>
+    </svg>
+
+    <div class="intro__hint" aria-hidden="true">
+      <span class="t-eyebrow">Scroll</span>
+      <svg width="24" height="24"><use href="#icon-chevron-down"/></svg>
+    </div>
+  </section>
+
   <!-- ── Hero (Light) ── -->
   <section class="section hero">
     <div class="page hero__inner">
@@ -141,41 +167,43 @@
   <!-- ── Work 01 (Dark) ── -->
   <section class="section" id="work" data-theme="dark">
     <div class="page tile__inner">
-      <div class="tile__head">
-        <p class="t-eyebrow tile__eyebrow">Work 01 · 모꼬지</p>
-        <h2 class="t-h1">고립·은둔 청년이 다시 사람을 만나기까지, 징검다리를 놓았습니다.</h2>
-        <p class="t-lead tile__lead">
-          AI 유형 진단부터 단계별 온·오프라인 커뮤니티, 지도 기반 공공 정책 추천까지 하나로 이어지는 복지 플랫폼입니다.
-          5명 팀의 리더로 아키텍처를 설계하고 전체 통합을 맡아 3주 만에 MVP를 배포했습니다.
-        </p>
-      </div>
+      <div class="tile__text">
+        <div class="tile__head">
+          <p class="t-eyebrow tile__eyebrow">Work 01 · 모꼬지</p>
+          <h2 class="t-h1">고립·은둔 청년이 다시 사람을 만나기까지, 징검다리를 놓았습니다.</h2>
+          <p class="t-lead tile__lead">
+            AI 유형 진단부터 단계별 온·오프라인 커뮤니티, 지도 기반 공공 정책 추천까지 하나로 이어지는 복지 플랫폼입니다.
+            5명 팀의 리더로 아키텍처를 설계하고 전체 통합을 맡아 3주 만에 MVP를 배포했습니다.
+          </p>
+        </div>
 
-      <ul class="t-body-s tile__meta">
-        <li>2026.08.12~2026.08.28</li>
-        <li>팀 5명 · 기여도 50%</li>
-        <li>PM · 풀스택 · 인프라</li>
-        <li>최종 성과 발표 2등 · 우수 수료생 선발</li>
-      </ul>
+        <ul class="t-body-s tile__meta">
+          <li>2026.08.12~2026.08.28</li>
+          <li>팀 5명 · 기여도 50%</li>
+          <li>PM · 풀스택 · 인프라</li>
+          <li>최종 성과 발표 2등 · 우수 수료생 선발</li>
+        </ul>
+
+        <ul class="chips">
+          <li class="chip">Next.js App Router</li>
+          <li class="chip">TypeScript</li>
+          <li class="chip">AWS Bedrock</li>
+          <li class="chip">AWS Cognito</li>
+          <li class="chip">Prisma</li>
+          <li class="chip">RDS PostgreSQL</li>
+        </ul>
+
+        <div class="tile__actions">
+          <a class="button button--l button--text" href="https://github.com/uchan04/AWS_project" target="_blank" rel="noopener noreferrer">
+            코드 보기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+            <span class="visually-hidden">(새 창)</span>
+          </a>
+        </div>
+      </div>
 
       <div class="media media--tile">
         <svg class="media__aperture" viewBox="0 0 24 24" aria-hidden="true"><use href="#aperture-ring"/></svg>
         <span class="media-tag">가상 화면</span>
-      </div>
-
-      <ul class="chips">
-        <li class="chip">Next.js App Router</li>
-        <li class="chip">TypeScript</li>
-        <li class="chip">AWS Bedrock</li>
-        <li class="chip">AWS Cognito</li>
-        <li class="chip">Prisma</li>
-        <li class="chip">RDS PostgreSQL</li>
-      </ul>
-
-      <div class="tile__actions">
-        <a class="button button--l button--text" href="https://github.com/uchan04/AWS_project" target="_blank" rel="noopener noreferrer">
-          코드 보기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
-          <span class="visually-hidden">(새 창)</span>
-        </a>
       </div>
     </div>
   </section>
@@ -183,39 +211,41 @@
   <!-- ── Work 02 (Light) ── -->
   <section class="section">
     <div class="page tile__inner">
-      <div class="tile__head">
-        <p class="t-eyebrow tile__eyebrow">Work 02 · Welliverse</p>
-        <h2 class="t-h1">흩어진 건강 기록을 캐릭터 한 명의 성장 이야기로 모았습니다.</h2>
-        <p class="t-lead tile__lead">
-          피부·수면·스트레스·수분 섭취 기록을 캐릭터의 외형에 실시간으로 반영하고,
-          그 변화를 하나의 서사로 설명해 오늘 할 루틴을 먼저 제안합니다.
-        </p>
-      </div>
+      <div class="tile__text">
+        <div class="tile__head">
+          <p class="t-eyebrow tile__eyebrow">Work 02 · Welliverse</p>
+          <h2 class="t-h1">흩어진 건강 기록을 캐릭터 한 명의 성장 이야기로 모았습니다.</h2>
+          <p class="t-lead tile__lead">
+            피부·수면·스트레스·수분 섭취 기록을 캐릭터의 외형에 실시간으로 반영하고,
+            그 변화를 하나의 서사로 설명해 오늘 할 루틴을 먼저 제안합니다.
+          </p>
+        </div>
 
-      <ul class="t-body-s tile__meta">
-        <li>2026.08.01~2026.08.25</li>
-        <li>기여도 40%</li>
-        <li>데이터 아키텍처 · AI 매핑 설계</li>
-        <li>멋사대학 14기 중앙 해커톤</li>
-      </ul>
+        <ul class="t-body-s tile__meta">
+          <li>2026.08.01~2026.08.25</li>
+          <li>기여도 40%</li>
+          <li>데이터 아키텍처 · AI 매핑 설계</li>
+          <li>멋사대학 14기 중앙 해커톤</li>
+        </ul>
+
+        <ul class="chips">
+          <li class="chip">React</li>
+          <li class="chip">멀티모달 AI</li>
+          <li class="chip">데이터 모델링</li>
+          <li class="chip">추천 엔진</li>
+        </ul>
+
+        <div class="tile__actions">
+          <a class="button button--l button--text" href="https://github.com/Welliverse/Welli-FE-A" target="_blank" rel="noopener noreferrer">
+            코드 보기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+            <span class="visually-hidden">(새 창)</span>
+          </a>
+        </div>
+      </div>
 
       <div class="media media--tile">
         <svg class="media__aperture" viewBox="0 0 24 24" aria-hidden="true"><use href="#aperture-ring"/></svg>
         <span class="media-tag">가상 화면</span>
-      </div>
-
-      <ul class="chips">
-        <li class="chip">React</li>
-        <li class="chip">멀티모달 AI</li>
-        <li class="chip">데이터 모델링</li>
-        <li class="chip">추천 엔진</li>
-      </ul>
-
-      <div class="tile__actions">
-        <a class="button button--l button--text" href="https://github.com/Welliverse/Welli-FE-A" target="_blank" rel="noopener noreferrer">
-          코드 보기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
-          <span class="visually-hidden">(새 창)</span>
-        </a>
       </div>
     </div>
   </section>
@@ -223,40 +253,42 @@
   <!-- ── Work 03 (Dark) ── -->
   <section class="section" data-theme="dark">
     <div class="page tile__inner">
-      <div class="tile__head">
-        <p class="t-eyebrow tile__eyebrow">Work 03 · 약·음식 상성 체커</p>
-        <h2 class="t-h1">먹는 약과 오늘 먹은 음식이 부딪히는지 한눈에 보여 줍니다.</h2>
-        <p class="t-lead tile__lead">
-          복용 중인 약을 약상자에 담으면 음식과의 상호작용을 금기·경고·주의 3단계로 분석해 리포트로 보여 줍니다.
-          공공 데이터로 성분 매핑 테이블을 만들어, 브랜드명으로 찾아도 성분명으로 찾아집니다.
-        </p>
-      </div>
+      <div class="tile__text">
+        <div class="tile__head">
+          <p class="t-eyebrow tile__eyebrow">Work 03 · 약·음식 상성 체커</p>
+          <h2 class="t-h1">먹는 약과 오늘 먹은 음식이 부딪히는지 한눈에 보여 줍니다.</h2>
+          <p class="t-lead tile__lead">
+            복용 중인 약을 약상자에 담으면 음식과의 상호작용을 금기·경고·주의 3단계로 분석해 리포트로 보여 줍니다.
+            공공 데이터로 성분 매핑 테이블을 만들어, 브랜드명으로 찾아도 성분명으로 찾아집니다.
+          </p>
+        </div>
 
-      <ul class="t-body-s tile__meta">
-        <li>2026.08</li>
-        <li>개인 프로젝트 · 기여도 100%</li>
-        <li>프론트엔드 · 백엔드 · UI/UX · 공공 데이터 DB</li>
-      </ul>
+        <ul class="t-body-s tile__meta">
+          <li>2026.08</li>
+          <li>개인 프로젝트 · 기여도 100%</li>
+          <li>프론트엔드 · 백엔드 · UI/UX · 공공 데이터 DB</li>
+        </ul>
+
+        <ul class="chips">
+          <li class="chip">Next.js 14</li>
+          <li class="chip">NestJS 10</li>
+          <li class="chip">Prisma</li>
+          <li class="chip">PostgreSQL</li>
+          <li class="chip">Tailwind CSS</li>
+          <li class="chip">pnpm · turbo</li>
+        </ul>
+
+        <div class="tile__actions">
+          <a class="button button--l button--text" href="https://github.com/uchan04/drug-food-app" target="_blank" rel="noopener noreferrer">
+            코드 보기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+            <span class="visually-hidden">(새 창)</span>
+          </a>
+        </div>
+      </div>
 
       <div class="media media--tile">
         <svg class="media__aperture" viewBox="0 0 24 24" aria-hidden="true"><use href="#aperture-ring"/></svg>
         <span class="media-tag">가상 화면</span>
-      </div>
-
-      <ul class="chips">
-        <li class="chip">Next.js 14</li>
-        <li class="chip">NestJS 10</li>
-        <li class="chip">Prisma</li>
-        <li class="chip">PostgreSQL</li>
-        <li class="chip">Tailwind CSS</li>
-        <li class="chip">pnpm · turbo</li>
-      </ul>
-
-      <div class="tile__actions">
-        <a class="button button--l button--text" href="https://github.com/uchan04/drug-food-app" target="_blank" rel="noopener noreferrer">
-          코드 보기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
-          <span class="visually-hidden">(새 창)</span>
-        </a>
       </div>
     </div>
   </section>
@@ -264,39 +296,41 @@
   <!-- ── Work 04 (Light) ── -->
   <section class="section">
     <div class="page tile__inner">
-      <div class="tile__head">
-        <p class="t-eyebrow tile__eyebrow">Work 04 · 이리온</p>
-        <h2 class="t-h1">디지털이 어려운 어르신과 봉사자를 동네 단위로 연결합니다.</h2>
-        <p class="t-lead tile__lead">
-          PC·모바일 기기·생활 가전으로 봉사 분야를 나누고, 활동 장소와 모집 인원을 한 화면에서 읽히게 정리했습니다.
-          프론트엔드를 맡아 공고·게시판 목록과 마이페이지 실적 화면을 만들었습니다.
-        </p>
-      </div>
+      <div class="tile__text">
+        <div class="tile__head">
+          <p class="t-eyebrow tile__eyebrow">Work 04 · 이리온</p>
+          <h2 class="t-h1">디지털이 어려운 어르신과 봉사자를 동네 단위로 연결합니다.</h2>
+          <p class="t-lead tile__lead">
+            PC·모바일 기기·생활 가전으로 봉사 분야를 나누고, 활동 장소와 모집 인원을 한 화면에서 읽히게 정리했습니다.
+            프론트엔드를 맡아 공고·게시판 목록과 마이페이지 실적 화면을 만들었습니다.
+          </p>
+        </div>
 
-      <ul class="t-body-s tile__meta">
-        <li>2023.07.17~2023.08.18</li>
-        <li>팀 5명 · 기여도 40%</li>
-        <li>프론트엔드</li>
-        <li>멋쟁이사자처럼 11주년 해커톤</li>
-      </ul>
+        <ul class="t-body-s tile__meta">
+          <li>2023.07.17~2023.08.18</li>
+          <li>팀 5명 · 기여도 40%</li>
+          <li>프론트엔드</li>
+          <li>멋쟁이사자처럼 11주년 해커톤</li>
+        </ul>
+
+        <ul class="chips">
+          <li class="chip">React</li>
+          <li class="chip">HTML5</li>
+          <li class="chip">CSS3</li>
+          <li class="chip">컴포넌트 설계</li>
+        </ul>
+
+        <div class="tile__actions">
+          <a class="button button--l button--text" href="https://www.figma.com/design/yos87uVND6MMZoANfx5uLm/%EC%9D%B4%EB%A6%AC%EC%98%A8?node-id=0-1" target="_blank" rel="noopener noreferrer">
+            디자인 보기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+            <span class="visually-hidden">(새 창)</span>
+          </a>
+        </div>
+      </div>
 
       <div class="media media--tile">
         <svg class="media__aperture" viewBox="0 0 24 24" aria-hidden="true"><use href="#aperture-ring"/></svg>
         <span class="media-tag">가상 화면</span>
-      </div>
-
-      <ul class="chips">
-        <li class="chip">React</li>
-        <li class="chip">HTML5</li>
-        <li class="chip">CSS3</li>
-        <li class="chip">컴포넌트 설계</li>
-      </ul>
-
-      <div class="tile__actions">
-        <a class="button button--l button--text" href="https://www.figma.com/design/yos87uVND6MMZoANfx5uLm/%EC%9D%B4%EB%A6%AC%EC%98%A8?node-id=0-1" target="_blank" rel="noopener noreferrer">
-          디자인 보기 <svg aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
-          <span class="visually-hidden">(새 창)</span>
-        </a>
       </div>
     </div>
   </section>
@@ -489,6 +523,6 @@
   </div>
 </footer>
 
-<script src="app.js" defer></script>
+<script src="app.js?v=4" defer></script>
 </body>
 </html>

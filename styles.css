@@ -453,3 +453,209 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 767px) {
   .footer__top { grid-template-columns: 1fr; align-items: start; }
 }
+
+/* ── 정렬 — Section Tile 은 가운데 한 줄기, About 은 12컬럼을 채웁니다 ── */
+/* Figma 의 Section Tile 과 같게: 아이브로 → 헤드라인 → 리드 → 버튼 → 이미지를 가운데로.
+   모바일(767px 이하)은 긴 한글 문단을 읽기 쉽게 왼쪽 정렬을 유지합니다. */
+@media (min-width: 768px) {
+  .hero__inner,
+  .tile__inner { justify-items: center; text-align: center; }
+
+  .hero__slogan { max-width: none; }
+  .hero__lead   { max-width: 640px; }
+  .hero__actions { justify-content: center; }
+
+  .tile__head { max-width: 880px; justify-items: center; }
+  .tile__meta,
+  .tile__actions,
+  .tile__inner .chips { justify-content: center; }
+  .media--tile { margin-inline: auto; }
+}
+
+@media (min-width: 1024px) {
+  .about {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--hyc-space-lg);
+    align-items: center;
+  }
+  .about > .media  { grid-column: 1 / span 4; }
+  .about__body     { grid-column: 6 / -1; }
+  .about__text     { max-width: none; }
+}
+
+/* ── 작업 섹션 — 좁은 화면은 세로로: 제목 → 메타 → 화면 → 칩 → 링크 ── */
+/* .tile__text 는 1200px 이상에서만 글 칸이 되고, 그 아래에서는 상자를 풀어 순서만 정합니다. */
+.tile__text    { display: contents; }
+.tile__head    { order: 1; }
+.tile__meta    { order: 2; }
+.media--tile   { order: 3; }
+.tile__inner .chips { order: 4; }
+.tile__actions { order: 5; }
+
+/* ── 작업 섹션 — 넓은 화면은 2단: 글 5칸 · 화면 7칸 ── */
+@media (min-width: 1200px) {
+  .tile__inner {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--hyc-space-lg);
+    align-items: center;
+    justify-items: stretch;
+    text-align: left;
+  }
+  .tile__text {
+    display: grid;
+    gap: var(--hyc-space-lg);
+    grid-column: 1 / span 5;
+    grid-row: 1;
+  }
+  .tile__inner > .media--tile {
+    grid-column: 6 / -1;
+    grid-row: 1;
+    aspect-ratio: 16 / 9;          /* DESIGN.md 6. 이미지 — Section Tile 16:9 */
+    max-width: none;
+    margin: 0;
+  }
+  .tile__head { max-width: none; justify-items: start; }
+  /* 5칸 안에서는 헤드라인을 H2 역할(36px)로 — 값은 역할 표 그대로 */
+  .tile__head .t-h1 { font-size: 36px; line-height: 135%; letter-spacing: -0.02em; }
+  .tile__meta,
+  .tile__actions,
+  .tile__inner .chips { justify-content: flex-start; }
+}
+
+/* ── 한 화면에 한 섹션 + 한 화면씩 멈춤 ─────────────────────── */
+/* 넓고 충분히 높은 화면에서만 켭니다. 좁거나 낮은 화면은 자유 스크롤. */
+:root { --nav-h: 64px; }
+@media (max-width: 1023px) { :root { --nav-h: 56px; } }
+
+@media (min-width: 1200px) and (min-height: 760px) {
+  html {
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: var(--nav-h);     /* 섹션 머리가 떠 있는 내비게이션 아래에서 멈춥니다 */
+  }
+
+  .section {
+    min-height: calc(100svh - var(--nav-h));
+    display: grid;
+    align-content: center;
+    padding-block: var(--hyc-space-2xl);
+    scroll-snap-align: start;
+    scroll-snap-stop: always;             /* 한 번 넘기면 한 섹션만 */
+  }
+  .footer { scroll-snap-align: end; }
+
+  /* 목록 섹션을 한 화면에 담습니다 */
+  .section-header { margin-bottom: var(--hyc-space-xl); }
+  #experience .section-header { max-width: none; }
+  .row       { padding-block: var(--hyc-space-md); }
+  .skill-row { padding-block: var(--hyc-space-md); }
+}
+
+/* ── 모션 — 섹션이 화면에 들어올 때 ─────────────────────────── */
+/* 순서: 아이브로 → 헤드라인 → 리드 → 나머지. 이미지는 열린 원처럼 가운데에서 열립니다.
+   움직임 줄이기 설정이면 모두 끕니다. JS가 없으면 처음부터 다 보입니다. */
+:root {
+  --hyc-motion-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --hyc-motion-base: 480ms;
+  --hyc-motion-slow: 800ms;
+  --hyc-motion-step: 70ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 행·숫자 묶음 안의 요소는 묶음째 움직이므로 따로 움직이지 않습니다 */
+  .js main .section :is(.t-eyebrow, h1, h2, .t-lead, .section-header__desc,
+                        .tile__meta, .chips, .tile__actions, .hero__actions,
+                        .stat, .row, .skill-row, .facts):not(:is(.row, .skill-row, .stat, .facts) *) {
+    opacity: 0;
+    translate: 0 24px;
+    transition:
+      opacity var(--hyc-motion-base) var(--hyc-motion-ease),
+      translate var(--hyc-motion-slow) var(--hyc-motion-ease);
+    transition-delay: calc(var(--i, 0) * var(--hyc-motion-step));
+  }
+
+  .js main .section .media {
+    clip-path: inset(10% 10% 10% 10% round var(--hyc-radius-lg));
+    opacity: 0;
+    transition:
+      clip-path var(--hyc-motion-slow) var(--hyc-motion-ease),
+      opacity var(--hyc-motion-base) var(--hyc-motion-ease);
+    transition-delay: calc(var(--i, 0) * var(--hyc-motion-step));
+  }
+  .js main .section .media--square { clip-path: inset(10% round var(--hyc-radius-full)); }
+
+  /* Hero — The Aperture: 열린 원이 한 획으로 그려집니다 */
+  .js .hero__drop {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1800ms var(--hyc-motion-ease) 300ms;
+  }
+
+  /* 들어온 섹션 */
+  .js main .section[data-inview="true"] :is(.t-eyebrow, h1, h2, .t-lead, .section-header__desc,
+                                            .tile__meta, .chips, .tile__actions, .hero__actions,
+                                            .stat, .row, .skill-row, .facts):not(:is(.row, .skill-row, .stat, .facts) *) {
+    opacity: 1;
+    translate: 0 0;
+  }
+  .js main .section[data-inview="true"] .media {
+    clip-path: inset(0 round var(--hyc-radius-lg));
+    opacity: 1;
+  }
+  .js main .section[data-inview="true"] .media--square { clip-path: inset(0 round var(--hyc-radius-full)); }
+  .js .hero[data-inview="true"] .hero__drop { stroke-dashoffset: 0; }
+}
+
+/* ── Intro — 로고 한 장. 스크롤하면 획마다 자기 선 방향으로 흩어집니다 ── */
+/* 획 7개: H(왼 기둥 ↑ · 가로획 ← · 오른 기둥 ↓) · Y(왼팔 ↖ · 오른팔 ↗ · 기둥 ↓ — The Drop) · C(호를 따라 회전).
+   각 획은 꼬리부터 머리 쪽으로 지워지며 빠져나갑니다. */
+
+.intro {
+  position: relative;
+  min-height: calc(100svh - var(--nav-h));
+  display: grid;
+  place-items: center;
+  overflow: clip;                       /* 흩어진 획은 이 면 밖으로 나가지 않습니다 */
+}
+
+.intro__logo {
+  width: min(540px, 70vw);
+  height: auto;
+  overflow: visible;
+  color: var(--hyc-color-brand-logo);
+}
+
+.intro__stroke path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.437;                  /* One Weight — 원본 로고의 획 굵기(가로획·C는 각 획에서 덮어씀) */
+  stroke-linecap: butt;
+}
+
+/* JS가 획을 준비하기 전에는 숨겨, 처음 모여드는 모션 전에 완성된 로고가 깜빡이지 않게 합니다 */
+.js .intro__logo:not([data-ready]) { opacity: 0; }
+
+.intro__hint {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: var(--hyc-space-2xl);
+  display: grid;
+  justify-items: center;
+  gap: var(--hyc-space-2xs);
+  color: var(--hyc-color-text-tertiary);
+  opacity: calc(1 - var(--intro-p, 0) * 4);   /* 스크롤을 시작하면 바로 사라집니다 */
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .intro__hint svg { animation: intro-bob 1.6s var(--hyc-motion-ease) infinite; }
+  @keyframes intro-bob { 50% { translate: 0 6px; } }
+}
+
+/* 내비게이션 — 아래에 있는 섹션과 같은 면이 됩니다(app.js가 data-theme를 맞춤) */
+.nav { color: var(--hyc-color-text-primary); }
+
+/* 큰 로고가 흩어지는 동안 작은 로고가 나타납니다 */
+.js .nav .logo {
+  opacity: var(--intro-logo, 1);
+  transition: opacity 240ms linear;
+}
