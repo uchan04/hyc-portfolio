@@ -260,3 +260,33 @@ if (intro) {
   renderIntro();
   logo.dataset.ready = "true";
 }
+
+/* ── 작업물 영상 — 화면에 보일 때만 소리 없이 재생, 벗어나면 멈춥니다 ── */
+/* '동작 줄이기'를 켠 사람에게는 첫 장면만 보여 주고 재생 버튼을 남깁니다.
+   JS가 없으면 HTML의 controls 가 그대로 남아 직접 재생할 수 있습니다. */
+const workVideos = [...document.querySelectorAll(".media__video")];
+if (workVideos.length) {
+  const playIfAllowed = (video) => {
+    if (reduceMotion.matches) return;
+    video.muted = true;
+    const started = video.play();
+    if (started) started.catch(() => {});
+  };
+  const applyMotionPref = () => workVideos.forEach((video) => {
+    video.controls = reduceMotion.matches;
+    if (reduceMotion.matches) video.pause();
+  });
+  const videoWatch = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      target.dataset.visible = isIntersecting ? "true" : "false";
+      if (isIntersecting) playIfAllowed(target);
+      else target.pause();
+    });
+  }, { threshold: 0.35 });
+  workVideos.forEach((video) => videoWatch.observe(video));
+  applyMotionPref();
+  reduceMotion.addEventListener("change", () => {
+    applyMotionPref();
+    workVideos.filter((video) => video.dataset.visible === "true").forEach(playIfAllowed);
+  });
+}

@@ -31,13 +31,21 @@ python3 -m http.server 8000
 
 | 자리 | 비율 | 이름 |
 |---|---|---|
-| Section Tile · Work 01 모꼬지 | 1040×520 | `stepping-stones` |
+| Section Tile · Work 01 모꼬지 | 1040×520 | **영상 넣음** `videos/mokoji.mp4` |
 | Section Tile · Work 02 Welliverse | 1040×520 | `morning-water` |
 | Section Tile · Work 03 약·음식 상성 체커 | 1040×520 | `grapefruit-pills` |
 | Section Tile · Work 04 이리온 | 1040×520 | `hero-desk` |
-| About 프로필 | 1:1 | `books` |
+| About 프로필 | 원본 비율(1179:1459) | **사진 넣음** `images/profile.jpg` (컬러) |
 
 작업물 화면이 시안이나 목업이면 왼쪽 위 `가상 화면` Media Tag를 그대로 둡니다. 실제 서비스 화면이면 지웁니다.
+
+## 영상 넣기
+
+작업물 화면에는 짧은 화면 녹화를 넣을 수 있습니다(Work 01 참고). 화면에 보일 때만 소리 없이 반복 재생합니다.
+
+- 16:9, 1280×720, H.264 MP4, 소리 없음, 30초 안팎 · 몇 MB 이하 (`-movflags +faststart`)
+- 첫 장면을 `poster` 이미지로 함께 넣습니다. '동작 줄이기' 사용자와 Figma에는 이 이미지가 보입니다.
+- `<video class="media__video" … muted loop playsinline preload="none" controls>` — 재생은 `app.js` 가 맡습니다.
 
 ## 지킨 규칙
 
