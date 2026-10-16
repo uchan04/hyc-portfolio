@@ -296,9 +296,11 @@
         </div>
       </div>
 
+      <!-- 실제 서비스 화면 녹화 — 화면에 보일 때만 소리 없이 반복 재생, 실제 화면이라 "가상 화면" 태그 없음 -->
       <div class="media media--tile">
-        <svg class="media__aperture" viewBox="0 0 24 24" aria-hidden="true"><use href="#aperture-ring"/></svg>
-        <span class="media-tag">가상 화면</span>
+        <video class="media__video" src="videos/mfcc.mp4?v=1" poster="images/mfcc-poster.jpg?v=1"
+               width="1024" height="576" muted loop playsinline preload="none" controls
+               aria-label="약·음식 상성 체커 화면 녹화 — 약 검색과 저장, 내 약 상자, 음식 상호작용 분석"></video>
       </div>
     </div>
   </section>
