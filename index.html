@@ -16,8 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Gothic+A1:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="tokens.css?v=7">
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="tokens.css?v=8">
+<link rel="stylesheet" href="styles.css?v=8">
 
 <!-- 첫 페인트 전에 모드를 정해 깜빡임을 막습니다 -->
 <script>
@@ -245,9 +245,17 @@
         </div>
       </div>
 
-      <div class="media media--tile">
-        <svg class="media__aperture" viewBox="0 0 24 24" aria-hidden="true"><use href="#aperture-ring"/></svg>
-        <span class="media-tag">가상 화면</span>
+      <!-- 실제 서비스 시연 녹화(모바일 화면) — 세 장면을 나란히, 화면에 보일 때만 소리 없이 반복 재생 -->
+      <div class="media media--tile media--phones">
+        <video class="media__video" src="videos/welliverse-1.mp4?v=1" poster="images/welliverse-1.jpg?v=1"
+               width="300" height="720" muted loop playsinline preload="none" controls
+               aria-label="Welliverse 화면 녹화 1 — 건강 목표를 고르면 AI가 나를 닮은 캐릭터를 만듭니다"></video>
+        <video class="media__video" src="videos/welliverse-2.mp4?v=1" poster="images/welliverse-2.jpg?v=1"
+               width="300" height="720" muted loop playsinline preload="none" controls
+               aria-label="Welliverse 화면 녹화 2 — 기분과 물 섭취를 기록하면 캐릭터 표정과 상태가 바로 바뀝니다"></video>
+        <video class="media__video" src="videos/welliverse-3.mp4?v=1" poster="images/welliverse-3.jpg?v=1"
+               width="300" height="720" muted loop playsinline preload="none" controls
+               aria-label="Welliverse 화면 녹화 3 — 오늘의 루틴을 마치면 AI가 건강을 분석하고 캐릭터가 성장합니다"></video>
       </div>
     </div>
   </section>
@@ -483,6 +491,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=7" defer></script>
+<script src="app.js?v=8" defer></script>
 </body>
 </html>

@@ -295,6 +295,24 @@ a { color: inherit; text-decoration: none; }
 .media--portrait > img { filter: none; }                            /* 프로필 사진만 원본 컬러 */
 .media > video { display: block; width: 100%; height: 100%; object-fit: cover; }   /* 작업물 화면 녹화 — 화면은 사진이 아니라 컬러 그대로 */
 
+/* 모바일 화면 녹화 3개를 나란히 — 세로 화면을 가로 칸 높이에 맞춰 가운데 정렬합니다.
+   높이는 칸 높이의 84%와 칸 너비로 들어가는 최대 높이 중 작은 쪽 (5:12 화면 3개 + 사이 간격) */
+.media--phones {
+  container-type: size;
+  display: flex; justify-content: center; align-items: center;
+  gap: clamp(8px, 3cqw, var(--hyc-space-lg));
+}
+.media--phones > video {
+  width: auto;
+  height: min(84cqh, 65cqw);
+  aspect-ratio: 5 / 12;
+  border-radius: var(--hyc-radius-md);
+  box-shadow: 0 0 0 var(--hyc-stroke-hairline) var(--hyc-color-border-default);
+}
+@media (max-width: 767px) {
+  .media--phones { aspect-ratio: 4 / 3; }   /* 좁은 화면은 칸을 세로로 늘려 화면 3개가 너무 작아지지 않게 */
+}
+
 .media__aperture { width: 96px; height: 96px; color: var(--hyc-color-icon-secondary); }
 .media--square .media__aperture { width: 64px; height: 64px; }
 

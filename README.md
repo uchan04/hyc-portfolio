@@ -32,7 +32,7 @@ python3 -m http.server 8000
 | 자리 | 비율 | 이름 |
 |---|---|---|
 | Section Tile · Work 01 모꼬지 | 1040×520 | **영상 넣음** `videos/mokoji.mp4` |
-| Section Tile · Work 02 Welliverse | 1040×520 | `morning-water` |
+| Section Tile · Work 02 Welliverse | 1040×520 | **영상 3개 넣음** `videos/welliverse-1~3.mp4` (모바일 화면 3분할, `.media--phones`) |
 | Section Tile · Work 03 약·음식 상성 체커 | 1040×520 | `grapefruit-pills` |
 | About 프로필 | 원본 비율(1179:1459) | **사진 넣음** `images/profile.jpg` (컬러) |
 
