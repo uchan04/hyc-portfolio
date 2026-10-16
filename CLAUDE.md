@@ -18,7 +18,7 @@
 | `header.nav` | Navigation `78:418` | 첫 화면 위에서는 Dark |
 | `section.intro` | Intro `78:440` | 로고 획 7개 = `.intro__stroke` 7개, 레이어 이름에 흩어지는 방향 |
 | `section.hero` | Hero `78:453` | The Drop 열린 원 포함 |
-| Work 01~04 `section` | Work Tile 인스턴스 `79:432` `79:481` `79:523` `79:565` | 메인 컴포넌트 Work Tile `77:395` (글 5칸 · 화면 7칸) |
+| Work 01~03 `section` | Work Tile 인스턴스 `79:432` `79:481` `79:523` | 메인 컴포넌트 Work Tile `77:395` (글 5칸 · 화면 7칸) |
 | `#result` | Result `79:607` | Stat 컴포넌트 세트 `77:479` (Highlight 1개) |
 | `#experience` | Experience `80:573` | Experience Row `77:442` |
 | `#skills` | Skills `80:610` | Skill Row `77:448` |

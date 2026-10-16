@@ -34,7 +34,6 @@ python3 -m http.server 8000
 | Section Tile · Work 01 모꼬지 | 1040×520 | **영상 넣음** `videos/mokoji.mp4` |
 | Section Tile · Work 02 Welliverse | 1040×520 | `morning-water` |
 | Section Tile · Work 03 약·음식 상성 체커 | 1040×520 | `grapefruit-pills` |
-| Section Tile · Work 04 이리온 | 1040×520 | `hero-desk` |
 | About 프로필 | 원본 비율(1179:1459) | **사진 넣음** `images/profile.jpg` (컬러) |
 
 작업물 화면이 시안이나 목업이면 왼쪽 위 `가상 화면` Media Tag를 그대로 둡니다. 실제 서비스 화면이면 지웁니다.
