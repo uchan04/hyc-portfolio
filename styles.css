@@ -685,3 +685,31 @@ a { color: inherit; text-decoration: none; }
   opacity: var(--intro-logo, 1);
   transition: opacity 240ms linear;
 }
+
+/* ── 프로젝트 상세 — 긴 설명은 자유롭게 스크롤하며 읽습니다 ── */
+html.case-document { scroll-snap-type: none; scroll-padding-top: var(--nav-h); }
+.case-nav { border-bottom: var(--hyc-stroke-hairline) solid var(--hyc-color-border-default); }
+.case-hero, .case-section { background: var(--hyc-color-bg-canvas); color: var(--hyc-color-text-primary); }
+.case-hero { padding-block: var(--hyc-space-4xl); }
+.case-hero h1 { margin-block: var(--hyc-space-lg); }
+.case-muted { color: var(--hyc-color-text-secondary); }
+.case-hero__lead { max-width: 880px; color: var(--hyc-color-text-secondary); }
+.case-facts { display: grid; grid-template-columns: 1.3fr 1.2fr 1fr; gap: var(--hyc-space-xl); border-top: var(--hyc-stroke-hairline) solid var(--hyc-color-border-default); padding-top: var(--hyc-space-lg); margin-top: var(--hyc-space-2xl); }
+.case-facts > div { display: grid; gap: var(--hyc-space-xs); }
+.case-jump { display: inline-flex; align-items: center; gap: var(--hyc-space-lg); min-height: var(--hyc-size-control-m); margin-top: var(--hyc-space-xl); }
+.case-section { padding-block: var(--hyc-space-4xl); }
+.case-section__heading { display: grid; gap: var(--hyc-space-md); margin-bottom: var(--hyc-space-2xl); }
+.case-steps { border-bottom: var(--hyc-stroke-hairline) solid var(--hyc-color-border-default); }
+.case-step { display: grid; grid-template-columns: 1fr 1.65fr; gap: var(--hyc-space-3xl); padding-block: var(--hyc-space-2xl); border-top: var(--hyc-stroke-hairline) solid var(--hyc-color-border-default); }
+.case-step__label { display: grid; align-content: start; gap: var(--hyc-space-md); }
+.case-step__body { display: grid; align-content: start; gap: var(--hyc-space-md); max-width: 720px; color: var(--hyc-color-text-secondary); }
+.case-step__body .is-strong { color: var(--hyc-color-text-primary); }
+.case-outcome__actions { display: flex; flex-wrap: wrap; gap: var(--hyc-space-xl); margin-top: var(--hyc-space-2xl); }
+.case-footer { padding-block: var(--hyc-space-xl); color: var(--hyc-color-text-secondary); }
+@media (max-width: 767px) {
+  .case-hero, .case-section { padding-block: var(--hyc-space-2xl); }
+  .case-facts { grid-template-columns: 1fr; gap: var(--hyc-space-lg); }
+  .case-step { grid-template-columns: 1fr; gap: var(--hyc-space-lg); padding-block: var(--hyc-space-xl); }
+  .case-step h3 br, .case-desktop-break { display: none; }
+  .case-section__heading { margin-bottom: var(--hyc-space-xl); }
+}
