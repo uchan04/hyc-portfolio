@@ -309,6 +309,9 @@ a { color: inherit; text-decoration: none; }
   border-radius: var(--hyc-radius-md);
   box-shadow: 0 0 0 var(--hyc-stroke-hairline) var(--hyc-color-border-default);
 }
+/* 화면 녹화가 하나뿐일 때는 자기 비율 그대로, 칸 높이를 더 채웁니다 */
+.media--phones > video:only-child { height: 92cqh; aspect-ratio: 9 / 16; }
+
 @media (max-width: 767px) {
   .media--phones { aspect-ratio: 4 / 3; }   /* 좁은 화면은 칸을 세로로 늘려 화면 3개가 너무 작아지지 않게 */
 }
@@ -631,16 +634,38 @@ a { color: inherit; text-decoration: none; }
   .js .hero[data-inview="true"] .hero__drop { stroke-dashoffset: 0; }
 }
 
-/* ── Intro — 로고 한 장. 스크롤하면 획마다 자기 선 방향으로 흩어집니다 ── */
+/* ── Intro — 로고와 이름·직무. 스크롤하면 획마다 자기 선 방향으로 흩어집니다 ── */
 /* 획 7개: H(왼 기둥 ↑ · 가로획 ← · 오른 기둥 ↓) · Y(왼팔 ↖ · 오른팔 ↗ · 기둥 ↓ — The Drop) · C(호를 따라 회전).
    각 획은 꼬리부터 머리 쪽으로 지워지며 빠져나갑니다. */
 
 .intro {
   position: relative;
   min-height: calc(100svh - var(--nav-h));
+  padding-block: var(--hyc-space-3xl) calc(var(--hyc-space-3xl) * 2);
   display: grid;
   place-items: center;
   overflow: clip;                       /* 흩어진 획은 이 면 밖으로 나가지 않습니다 */
+}
+
+.intro__brand {
+  display: grid;
+  justify-items: center;
+  gap: var(--hyc-space-xl);
+  max-width: 100%;
+  padding-inline: var(--hyc-space-lg);
+}
+
+.intro__identity {
+  display: grid;
+  gap: var(--hyc-space-sm);
+  text-align: center;
+  text-wrap: balance;
+  opacity: clamp(0, calc(1 - var(--intro-p, 0) * 2), 1);
+}
+
+.intro__description {
+  max-width: 480px;
+  color: var(--hyc-color-text-secondary);
 }
 
 .intro__logo {
